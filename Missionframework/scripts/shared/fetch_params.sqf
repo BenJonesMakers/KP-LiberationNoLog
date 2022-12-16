@@ -59,6 +59,7 @@ if(isServer) then {
     GET_PARAM_BOOL(KPLIB_directArsenal, "DirectArsenal", 0);
     GET_PARAM_BOOL(KP_liberation_playermenu, "PlayerMenu", 1);
     GET_PARAM(KP_liberation_victoryCondition, "VictoryCondition", 0);
+    GET_PARAM_BOOL(KP_liberation_noLogistics, "NoLogistics", 1);
 
     // Deactivate BI Revive when ACE Medical is running
     if (isClass (configfile >> "CfgPatches" >> "ace_medical")) then {
@@ -312,6 +313,10 @@ if (!isDedicated && hasInterface) then {
 
     _param = localize "STR_PARAMS_PLAYERMENU";
     _value = if (KP_liberation_playermenu) then {localize "STR_PARAMS_PLAYERMENU_KP";} else {localize "STR_PARAMS_PLAYERMENU_GREUH";};
+    _text = _text + format ["<font color='#ff8000'>%1</font><br />%2<br /><br />", _param, _value];
+
+    _param = localize "STR_NOLOGISTICS_PARAM";
+    _value = if (KP_liberation_noLogistics) then {localize "STR_PARAMS_ENABLED";} else {localize "STR_PARAMS_DISABLED";};
     _text = _text + format ["<font color='#ff8000'>%1</font><br />%2<br /><br />", _param, _value];
 
     _param = localize "STR_PARAMS_VICTORYCONDITION";

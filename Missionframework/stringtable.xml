@@ -3259,6 +3259,20 @@
             <Korean>짧은 밤</Korean>
             <Czech>Kratší noci</Czech>
         </Key>
+        <Key ID="STR_NOLOGISTICS_PARAM">
+            <Original>No Logistics</Original>
+            <French>Nuits plus courtes</French>
+            <German>Kürzere Nächte</German>
+            <Spanish>Noches más cortas</Spanish>
+            <Russian>Короткие ночи</Russian>
+            <Italian>Notte Breve</Italian>
+            <Chinesesimp>短暂夜晚</Chinesesimp>
+            <Chinese>短暫夜晚</Chinese>
+            <Turkish>Kısa geceler</Turkish>
+            <Portuguese>Noites curtas</Portuguese>
+            <Korean>짧은 밤</Korean>
+            <Czech>Kratší noci</Czech>
+        </Key>
         <Key ID="STR_REPAIRING">
             <Original>Repairing</Original>
             <French>Réparation</French>

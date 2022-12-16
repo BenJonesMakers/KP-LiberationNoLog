@@ -95,6 +95,12 @@ class Params {
         texts[] = {$STR_PARAMS_ENABLED, $STR_PARAMS_DISABLED};
         default = 0;
     };
+    class NoLogistics {
+        title = $STR_NOLOGISTICS_PARAM;
+        values[] = {1, 0};
+        texts[] = {$STR_PARAMS_ENABLED, $STR_PARAMS_DISABLED};
+        default = 0;
+    };
     class Weather {
         title = $STR_WEATHER_PARAM;
         values[] = {1, 2, 3};
