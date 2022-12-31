@@ -39,8 +39,34 @@ while {GRLIB_endgame == 0} do {
 
                     if ((_time - 1) < 1) then {
                         _time = KP_liberation_production_interval;
+                        //in here
+                        if (KP_liberation_noLogistics) then {
+                                {
+                                    // private _supplies = (_x select 1) + 100;
+                                    // private _ammo = (_x select 2) + 100;
+                                    // private _fuel = (_x select 3) + 100;
+                                private _crateType = KP_liberation_supply_crate;
+                                switch (_x select 7) do {
+                                    case 1: {_crateType = KP_liberation_ammo_crate; stats_ammo_produced = stats_ammo_produced + 100;};
+                                    case 2: {_crateType = KP_liberation_fuel_crate; stats_fuel_produced = stats_fuel_produced + 100;};
+                                    default {_crateType = KP_liberation_supply_crate; stats_supplies_produced = stats_supplies_produced + 100;};
+                                };
 
-                        if (((count (attachedObjects _storage)) < 12) && !((_x select 7) == 3)) then {
+                                    diag_log _x;
+
+                                    // _x set [1, _supplies];
+                                    // _x set [2, _ammo];
+                                    // _x set [3, _fuel];
+
+                                    private _crate = [_crateType, 100, (_x select 0)] call KPLIB_fnc_createCrate;
+                                    [_crate, (_x select 0)] call KPLIB_fnc_crateToStorage;
+
+                                    diag_log _x;
+
+                                } forEach KP_liberation_fob_resources;
+                        };
+
+                        if (((count (attachedObjects _storage)) < 12) && !((_x select 7) == 3) && !KP_liberation_noLogistics) then {
                             private _crateType = KP_liberation_supply_crate;
                             switch (_x select 7) do {
                                 case 1: {_crateType = KP_liberation_ammo_crate; stats_ammo_produced = stats_ammo_produced + 100;};
@@ -51,6 +77,8 @@ while {GRLIB_endgame == 0} do {
                             private _crate = [_crateType, 100, getPosATL _storage] call KPLIB_fnc_createCrate;
                             [_crate, _storage] call KPLIB_fnc_crateToStorage;
                         };
+
+                        // here
                     } else {
                         _time = _time - 1;
                     };
