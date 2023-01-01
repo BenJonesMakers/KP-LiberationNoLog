@@ -29,11 +29,21 @@ while {GRLIB_endgame == 0} do {
             private _fuelValue = 0;
             private _time = _x select 8;
 
+
+
             private _storage = nearestObjects [(markerPos (_x select 1)), [KP_liberation_small_storage_building], 100];
+            diag_log "_storage: ";
+            diag_log _storage;
             _storage = _storage select {(_x getVariable ["KP_liberation_storage_type",-1]) == 1};
+            diag_log "_storage after: ";
+            diag_log _storage;
             if ((count _storage) > 0) then {
                 _storage = (_storage select 0);
+                diag_log "_storage after again: ";
+                diag_log _storage;
                 _storageArray = [(getPosATL _storage),(getDir _storage),(vectorUpVisual _storage)];
+                diag_log "_storageArray: ";
+                diag_log _storageArray;
 
                 if (_time_update) then {
 
@@ -42,25 +52,26 @@ while {GRLIB_endgame == 0} do {
                         //in here
                         if (KP_liberation_noLogistics) then {
                                 {
-                                    // private _supplies = (_x select 1) + 100;
-                                    // private _ammo = (_x select 2) + 100;
-                                    // private _fuel = (_x select 3) + 100;
+                                private _fobStorage = nearestObjects [(_x select 0), [KP_liberation_large_storage_building], 100];
+                                diag_log "_fobStorage: ";
+                                diag_log _fobStorage;
+                                // _fobStorage = _fobStorage select {(_x getVariable ["KP_liberation_storage_type",-1]) == 1};
+                                diag_log "_fobStorage after: ";
+                                diag_log _fobStorage;
+                                _fobStorage = (_fobStorage select 0);
+                                diag_log "_fobStorage after again: ";
+                                diag_log _fobStorage;
                                 private _crateType = KP_liberation_supply_crate;
                                 switch (_x select 7) do {
                                     case 1: {_crateType = KP_liberation_ammo_crate; stats_ammo_produced = stats_ammo_produced + 100;};
                                     case 2: {_crateType = KP_liberation_fuel_crate; stats_fuel_produced = stats_fuel_produced + 100;};
                                     default {_crateType = KP_liberation_supply_crate; stats_supplies_produced = stats_supplies_produced + 100;};
-                                };
+                                    };
 
-                                    diag_log _x;
+                                    private _crate = [_crateType, 100, getPosATL _fobStorage] call KPLIB_fnc_createCrate;
+                                    [_crate, _fobStorage] call KPLIB_fnc_crateToStorage;
 
-                                    // _x set [1, _supplies];
-                                    // _x set [2, _ammo];
-                                    // _x set [3, _fuel];
-
-                                    private _crate = [_crateType, 100, (_x select 0)] call KPLIB_fnc_createCrate;
-                                    [_crate, (_x select 0)] call KPLIB_fnc_crateToStorage;
-
+                                    diag_log "x: ";
                                     diag_log _x;
 
                                 } forEach KP_liberation_fob_resources;
