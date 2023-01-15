@@ -52,15 +52,54 @@ while {GRLIB_endgame == 0} do {
                         //in here
                         if (KP_liberation_noLogistics) then {
                                 {
-                                private _fobStorage = nearestObjects [(_x select 0), [KP_liberation_large_storage_building], 100];
-                                diag_log "_fobStorage: ";
-                                diag_log _fobStorage;
-                                // _fobStorage = _fobStorage select {(_x getVariable ["KP_liberation_storage_type",-1]) == 1};
-                                diag_log "_fobStorage after: ";
-                                diag_log _fobStorage;
-                                _fobStorage = (_fobStorage select 0);
-                                diag_log "_fobStorage after again: ";
-                                diag_log _fobStorage;
+                                    // find the store locations nearby - old
+
+                                        //private _fobStorage = nearestObjects [(_x select 0), [KP_liberation_large_storage_building], 100];
+                                        //diag_log "_fobStorage: ";
+                                        // diag_log _fobStorage;
+                                        // diag_log "_fobStorage after: ";
+                                        // diag_log _fobStorage;
+                                        // _fobStorage = (_fobStorage select 0);
+                                        // diag_log "_fobStorage after again: ";
+                                        // diag_log _fobStorage;
+
+                                    // find the store locations new
+                                    private _storage_areas = nearestObjects [(_x select 0), [KP_liberation_small_storage_building, KP_liberation_large_storage_building], 150];
+
+                                    diag_log "_storage_areas: ";
+                                    diag_log _storage_areas;
+
+                                    if ((count _storage_areas) == 0) then {
+                                        diag_log "_storage_areas is empty ";
+                                    };
+
+                                    // find storage which isn't full and add it to a list
+
+                                    private _storageWithEnoughFreeSpace = [];
+                                    {
+                                        if (typeOf _x == KP_liberation_large_storage_building) then {
+                                            if ((count KP_liberation_large_storage_positions) - (count (attachedObjects _x)) > 1) then {
+                                                _storageWithEnoughFreeSpace pushBack _x;
+                                            };
+                                        };
+                                        if (typeOf _x == KP_liberation_small_storage_building) then {
+                                            if ((count KP_liberation_small_storage_positions) - (count (attachedObjects _x)) > 1) then {
+                                                _storageWithEnoughFreeSpace pushBack _x;
+                                            };
+                                        };
+                                    } forEach _storage_areas;
+
+                                    if ((count _storageWithEnoughFreeSpace) < 1) then {
+                                        diag_log "_storageWithEnoughFreeSpace is empty ";
+                                    };
+
+                                    // create crate in the first position of the list
+
+                                    private _fobStorage = (_storageWithEnoughFreeSpace select 0);
+
+                                    diag_log "_fobStorage: ";
+                                    diag_log _fobStorage;
+
                                 private _crateType = KP_liberation_supply_crate;
                                 switch (_x select 7) do {
                                     case 1: {_crateType = KP_liberation_ammo_crate; stats_ammo_produced = stats_ammo_produced + 100;};
