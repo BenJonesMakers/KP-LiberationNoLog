@@ -38,36 +38,23 @@ while {GRLIB_endgame == 0} do {
             diag_log "_storage after: ";
             diag_log _storage;
             if ((count _storage) > 0) then {
+
                 _storage = (_storage select 0);
-                diag_log "_storage after again: ";
-                diag_log _storage;
                 _storageArray = [(getPosATL _storage),(getDir _storage),(vectorUpVisual _storage)];
-                diag_log "_storageArray: ";
-                diag_log _storageArray;
 
                 if (_time_update) then {
 
                     if ((_time - 1) < 1) then {
                         _time = KP_liberation_production_interval;
                         //in here
+
                         if (KP_liberation_noLogistics) then {
+
+                            private _factoryType = _x select 7;
+
                                 {
-                                    // find the store locations nearby - old
-
-                                        //private _fobStorage = nearestObjects [(_x select 0), [KP_liberation_large_storage_building], 100];
-                                        //diag_log "_fobStorage: ";
-                                        // diag_log _fobStorage;
-                                        // diag_log "_fobStorage after: ";
-                                        // diag_log _fobStorage;
-                                        // _fobStorage = (_fobStorage select 0);
-                                        // diag_log "_fobStorage after again: ";
-                                        // diag_log _fobStorage;
-
                                     // find the store locations new
                                     private _storage_areas = nearestObjects [(_x select 0), [KP_liberation_small_storage_building, KP_liberation_large_storage_building], 150];
-
-                                    diag_log "_storage_areas: ";
-                                    diag_log _storage_areas;
 
                                     if ((count _storage_areas) == 0) then {
                                         diag_log "_storage_areas is empty ";
@@ -97,11 +84,8 @@ while {GRLIB_endgame == 0} do {
 
                                     private _fobStorage = (_storageWithEnoughFreeSpace select 0);
 
-                                    diag_log "_fobStorage: ";
-                                    diag_log _fobStorage;
-
                                 private _crateType = KP_liberation_supply_crate;
-                                switch (_x select 7) do {
+                                switch (_factoryType) do {
                                     case 1: {_crateType = KP_liberation_ammo_crate; stats_ammo_produced = stats_ammo_produced + 100;};
                                     case 2: {_crateType = KP_liberation_fuel_crate; stats_fuel_produced = stats_fuel_produced + 100;};
                                     default {_crateType = KP_liberation_supply_crate; stats_supplies_produced = stats_supplies_produced + 100;};
@@ -109,9 +93,6 @@ while {GRLIB_endgame == 0} do {
 
                                     private _crate = [_crateType, 100, getPosATL _fobStorage] call KPLIB_fnc_createCrate;
                                     [_crate, _fobStorage] call KPLIB_fnc_crateToStorage;
-
-                                    diag_log "x: ";
-                                    diag_log _x;
 
                                 } forEach KP_liberation_fob_resources;
                         };
