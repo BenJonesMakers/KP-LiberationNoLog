@@ -28,15 +28,9 @@ while {GRLIB_endgame == 0} do {
             private _ammoValue = 0;
             private _fuelValue = 0;
             private _time = _x select 8;
-
-
-
             private _storage = nearestObjects [(markerPos (_x select 1)), [KP_liberation_small_storage_building], 100];
-            diag_log "_storage: ";
-            diag_log _storage;
             _storage = _storage select {(_x getVariable ["KP_liberation_storage_type",-1]) == 1};
-            diag_log "_storage after: ";
-            diag_log _storage;
+
             if ((count _storage) > 0) then {
 
                 _storage = (_storage select 0);
