@@ -78,12 +78,12 @@ while {GRLIB_endgame == 0} do {
                                     private _storageWithEnoughFreeSpace = [];
                                     {
                                         if (typeOf _x == KP_liberation_large_storage_building) then {
-                                            if ((count KP_liberation_large_storage_positions) - (count (attachedObjects _x)) > 1) then {
+                                            if ((count KP_liberation_large_storage_positions) - (count (attachedObjects _x)) > 0) then {
                                                 _storageWithEnoughFreeSpace pushBack _x;
                                             };
                                         };
                                         if (typeOf _x == KP_liberation_small_storage_building) then {
-                                            if ((count KP_liberation_small_storage_positions) - (count (attachedObjects _x)) > 1) then {
+                                            if ((count KP_liberation_small_storage_positions) - (count (attachedObjects _x)) > 0) then {
                                                 _storageWithEnoughFreeSpace pushBack _x;
                                             };
                                         };
