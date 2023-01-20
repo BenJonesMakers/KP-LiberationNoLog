@@ -47,5 +47,8 @@ private _veh = objNull;
     };
 } forEach [
     ["littlebird_", KP_liberation_little_bird_classname],
-    ["boat_", KP_liberation_boat_classname]
+    ["boat_", KP_liberation_boat_classname],
+    ["free_plane_", HAWKESTFS_free_plane_classname],
+    ["free_helo_", HAWKESTFS_free_helo_classname],
+    ["free_uav_", HAWKESTFS_free_uav_classname],
 ];

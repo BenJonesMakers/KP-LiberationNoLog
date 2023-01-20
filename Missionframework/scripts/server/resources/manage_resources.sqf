@@ -40,7 +40,7 @@ while {GRLIB_endgame == 0} do {
 
                     if ((_time - 1) < 1) then {
                         _time = KP_liberation_production_interval;
-                        //in here
+                        //in here HAWKESTFS
 
                         if (KP_liberation_noLogistics) then {
 
