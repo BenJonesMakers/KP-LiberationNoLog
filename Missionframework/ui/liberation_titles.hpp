@@ -5,6 +5,12 @@ class CfgSounds {
         sound[] = {"res\c130.ogg", 1.0, 1};
         titles[] = {};
     };
+
+    class c17 {
+        name="c17";
+        sound[]={"res\c17.ogg", 2, 1};
+        titles[] = {};
+    };
 };
 
 class RscTitles {
